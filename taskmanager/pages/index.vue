@@ -1,41 +1,47 @@
 <template>
   <div class="container">
-    <p v-if="loading">ローディング中</p>
-    <p>{{ $store.getters.getUserName }}</p>
-    <button class="button is-primary is-rounded" @click="login">
-      ログイン
-    </button>
+    <a-spin v-if="loading" tip="読み込み中">
+      <div class="spin-content">
+      ローディング中
+      </div>
+    </a-spin>
+    <div v-else>
+      <p>{{ $store.getters.getUserName }}</p>
+      <button class="button is-primary is-rounded" @click="login">
+        ログイン
+      </button>
 
-    <table class="table is-narrow">
-      <thead>
-        <tr>
-          <th>todo</th>
-          <th>limit</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="todo in $store.getters['getTodos']" :key="todo.todo">
-          <td>{{ todo.todo }}</td>
-          <td>{{ todo.limit }}</td>
-        </tr>
-      </tbody>
-    </table>
+      <table class="table is-narrow">
+        <thead>
+          <tr>
+            <th>todo</th>
+            <th>limit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="todo in $store.getters['getTodos']" :key="todo.todo">
+            <td>{{ todo.todo }}</td>
+            <td>{{ todo.limit }}</td>
+          </tr>
+        </tbody>
+      </table>
 
-    <div class="field is-grouped">
-      <p class="control is-expanded">
-        <input v-model="newTodo" class="input" type="text" placeholder="todo" />
-      </p>
-      <p class="control is-expanded">
-        <input
-          v-model="newLimit"
-          class="input"
-          type="text"
-          placeholder="limit"
-        />
-      </p>
-      <p class="control">
-        <a class="button is-primary" @click="addTodo"> add </a>
-      </p>
+      <div class="field is-grouped">
+        <p class="control is-expanded">
+          <input v-model="newTodo" class="input" type="text" placeholder="todo" />
+        </p>
+        <p class="control is-expanded">
+          <input
+            v-model="newLimit"
+            class="input"
+            type="text"
+            placeholder="limit"
+          />
+        </p>
+        <p class="control">
+          <a class="button is-primary" @click="addTodo"> add </a>
+        </p>
+      </div>
     </div>
   </div>
 </template>
@@ -84,5 +90,10 @@ export default {
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+.spin-content {
+  border: 1px solid #91d5ff;
+  background-color: #e6f7ff;
+  padding: 30px;
 }
 </style>
