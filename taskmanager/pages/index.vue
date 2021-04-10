@@ -1,10 +1,19 @@
 <template>
   <div class="container">
-    <button class="button is-primary is-rounded">ログイン</button>
+    <button class="button is-primary is-rounded" @click="login">ログイン</button>
   </div>
 </template>
 
-<script></script>
+<script>
+export default {
+  methods: {
+    login() {
+      console.log("login");
+      this.$store.dispatch("login");
+    }
+  }
+}
+</script>
 
 <style>
 .container {
