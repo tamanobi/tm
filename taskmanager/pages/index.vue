@@ -1,48 +1,47 @@
 <template>
-  <div class="container">
-    <a-spin v-if="loading" tip="読み込み中">
-      <div class="spin-content">
-      ローディング中
-      </div>
-    </a-spin>
-    <div v-else>
-      <p>{{ $store.getters.getUserName }}</p>
-      <button class="button is-primary is-rounded" @click="login">
-        ログイン
-      </button>
+  <div>
+    <a-row>
+      <a-col :span="12">
+        <a-spin v-if="loading" tip="読み込み中">
+          <div class="spin-content">
+          ローディング中
+          </div>
+        </a-spin>
+        <div v-else>
+          <p>{{ $store.getters.getUserName }}</p>
+          <button class="button is-primary is-rounded" @click="login">
+            ログイン
+          </button>
 
-      <table class="table is-narrow">
-        <thead>
-          <tr>
-            <th>todo</th>
-            <th>limit</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="todo in $store.getters['getTodos']" :key="todo.todo">
-            <td>{{ todo.todo }}</td>
-            <td>{{ todo.limit }}</td>
-          </tr>
-        </tbody>
-      </table>
+          <table class="table is-narrow">
+            <thead>
+              <tr>
+                <th>todo</th>
+                <th>limit</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="todo in $store.getters['getTodos']" :key="todo.todo">
+                <td>{{ todo.todo }}</td>
+                <td>{{ todo.limit }}</td>
+              </tr>
+            </tbody>
+          </table>
 
-      <div class="field is-grouped">
-        <p class="control is-expanded">
-          <input v-model="newTodo" class="input" type="text" placeholder="todo" />
-        </p>
-        <p class="control is-expanded">
-          <input
-            v-model="newLimit"
-            class="input"
-            type="text"
-            placeholder="limit"
-          />
-        </p>
-        <p class="control">
-          <a class="button is-primary" @click="addTodo"> add </a>
-        </p>
-      </div>
-    </div>
+
+          <a-form-model :model="form" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
+            <a-form-model-item label="TODO">
+              <a-input v-model="form.todo" />
+            </a-form-model-item>
+            <a-form-model-item label="LIMIT">
+              <a-input v-model="form.limit" />
+            </a-form-model-item>
+          </a-form-model>
+          <a-button type="primary" @click="addTodo">add</a-button>
+          <a-button type="dashed" @click="clearTodo">clear</a-button>
+        </div>
+      </a-col>
+    </a-row>
   </div>
 </template>
 
@@ -50,8 +49,10 @@
 export default {
   data() {
     return {
-      newTodo: '',
-      newLimit: '',
+      form: {
+        todo: '',
+        limit: '',
+      },
       loading: true,
     }
   },
@@ -65,14 +66,21 @@ export default {
       console.log('login')
       this.$store.dispatch('login')
     },
+    reset() {
+      this.form = {
+        todo: '',
+        limit: '',
+      }
+    },
     addTodo() {
-      const todo = this.newTodo
-      const limit = this.newLimit
+      const {todo, limit} = this.form
 
       this.$store.dispatch('addTodo', { todo, limit })
-      this.newTodo = ''
-      this.newLimit = ''
+      this.reset()
     },
+    clearTodo() {
+      this.reset()
+    }
   },
   watch: {
     loading() {
