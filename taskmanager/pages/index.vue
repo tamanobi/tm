@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <p>{{ $store.getters.getUserName }}</p>
     <button class="button is-primary is-rounded" @click="login">ログイン</button>
   </div>
 </template>
