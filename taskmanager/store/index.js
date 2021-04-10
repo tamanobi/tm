@@ -1,22 +1,26 @@
-import firebase from '~/plugins/firebase'
-
 export const state = () => ({
   userUid: '',
-  userName: ''
+  userName: '',
+  todos: [],
 })
 
 export const mutations = {
   setUserUid(state, userUid) {
-    state.userUid = userUid;
+    state.userUid = userUid
   },
   setUserName(state, userName) {
-    state.userName = userName;
-  }
+    state.userName = userName
+  },
+  addTodo(state, todo) {
+    state.todos.push(todo)
+  },
 }
 
 export const actions = {
-  login({ commit }) {
+  login({ commit, getters }) {
     console.log('login action')
+    console.log(getters)
+    const firebase = getters['firebase/getFirebase']
     const provider = new firebase.auth.GoogleAuthProvider()
     firebase
       .auth()
@@ -32,6 +36,20 @@ export const actions = {
         console.log('error : ' + errorCode)
       })
   },
+  fetchTodo({ commit, store }) {
+    const todoRef = store.firebase.getFirebase().firestore().collection('todos')
+    todoRef
+      .get()
+      .then((res) => {
+        res.forEach((doc) => {
+          console.log(`success: ${doc.id} => ${doc.data()}`)
+          commit('addTodo', doc.data())
+        })
+      })
+      .catch((error) => {
+        console.log(`error: ${error}`)
+      })
+  },
 }
 
 export const getters = {
@@ -40,5 +58,8 @@ export const getters = {
   },
   getUserName(state) {
     return state.userName
-  }
+  },
+  getTodos() {
+    return state.todos
+  },
 }
