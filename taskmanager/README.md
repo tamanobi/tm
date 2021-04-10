@@ -1,5 +1,12 @@
 # taskmanager
 
+## TODO
+
+* setting firebase firestore rules
+* show only current user's tasks
+* improve the dev cycle using [hot reload](https://github.com/firebase/firebase-tools/issues/1676#issuecomment-698042925)
+* add tests
+
 ## Build Setup
 
 ```bash
