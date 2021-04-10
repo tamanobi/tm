@@ -1,4 +1,7 @@
-import firebase from 'firebase'
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/firestore';
+// ref: https://firebase.google.com/docs/web/setup?hl=ja#add-sdks-initialize
 
 export const state = () => ({
   firebase: null,
