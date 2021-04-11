@@ -15,7 +15,10 @@
     "ant-design-vue": "^1.7.4",
     "core-js": "^3.9.1",
     "firebase": "^8.3.3",
-    "nuxt": "^2.15.3"
+    "nuxt": "^2.15.3",
+    "pug": "^2.0.4",
+    "pug-loader": "^2.4.0",
+    "pug-plain-loader": "^1.1.0"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^6.0.0",
