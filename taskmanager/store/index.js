@@ -18,7 +18,6 @@ export const mutations = {
 
 export const actions = {
   login({ commit, getters }) {
-    console.log('login action')
     const firebase = getters['firebase/getFirebase']
     const provider = new firebase.auth.GoogleAuthProvider()
     firebase
@@ -26,13 +25,13 @@ export const actions = {
       .signInWithPopup(provider)
       .then(function (result) {
         const user = result.user
-        console.log('success : ' + user)
+        console.info('success : ' + user)
         commit('setUserUid', user.uid)
         commit('setUserName', user.displayName)
       })
       .catch(function (error) {
         const errorCode = error.code
-        console.log('error : ' + errorCode)
+        console.error('error : ' + errorCode)
       })
   },
   async fetchTodos({ commit, getters }) {
@@ -41,7 +40,7 @@ export const actions = {
       .collection('todos')
     const docs = await todoRef.get()
     docs.forEach((doc) => {
-      console.log(`success: ${doc.id} => ${doc.data()}`)
+      console.info(`success: ${doc.id} => ${doc.data()}`)
       commit('addTodo', doc.data())
     })
   },
@@ -50,7 +49,7 @@ export const actions = {
       .firestore()
       .collection('todos')
     todoRef.add({ todo: todo.todo, limit: todo.limit }).then((doc) => {
-      console.log(doc.id)
+      console.info(doc.id)
       commit('addTodo', todo)
     })
   },

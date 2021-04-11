@@ -41,6 +41,11 @@ export default {
       loading: true,
     }
   },
+  watch: {
+    loading() {
+      return this.isLoading
+    },
+  },
   async created() {
     this.loading = true
     await this.$store.dispatch('fetchTodos')
@@ -48,7 +53,6 @@ export default {
   },
   methods: {
     login() {
-      console.log('login')
       this.$store.dispatch('login')
     },
     reset() {
@@ -65,11 +69,6 @@ export default {
     },
     clearTodo() {
       this.reset()
-    },
-  },
-  watch: {
-    loading() {
-      return this.isLoading
     },
   },
 }
