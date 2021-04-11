@@ -1,49 +1,33 @@
-<template>
-  <div>
-    <a-row>
-      <a-col :span="12">
-        <a-spin v-if="loading" tip="読み込み中">
-          <div class="spin-content">ローディング中</div>
-        </a-spin>
-        <div v-else>
-          <p>{{ $store.getters.getUserName }}</p>
-          <button class="button is-primary is-rounded" @click="login">
-            ログイン
-          </button>
+<template lang="pug">
+  a-row
+    a-col(:span="12")
+      a-spin(v-if="loading" tip="読み込み中")
+        .spin-content ローディング中
+      div(v-else)
+        p {{ $store.getters.getUserName }}
+        button.button.is-primary.is-rounded(@click="login")
+          | ログイン
+        table
+          thead
+            tr
+              th todo
+              th limit
+          tbody
+            tr(v-for="todo in $store.getters['getTodos']" :key="todo.todo")
+              td {{ todo.todo }}
+              td {{ todo.limit }}
 
-          <table class="table is-narrow">
-            <thead>
-              <tr>
-                <th>todo</th>
-                <th>limit</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="todo in $store.getters['getTodos']" :key="todo.todo">
-                <td>{{ todo.todo }}</td>
-                <td>{{ todo.limit }}</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <a-form-model
-            :model="form"
-            :label-col="{ span: 5 }"
-            :wrapper-col="{ span: 12 }"
-          >
-            <a-form-model-item label="TODO">
-              <a-input v-model="form.todo" />
-            </a-form-model-item>
-            <a-form-model-item label="LIMIT">
-              <a-input v-model="form.limit" />
-            </a-form-model-item>
-          </a-form-model>
-          <a-button type="primary" @click="addTodo">add</a-button>
-          <a-button type="dashed" @click="clearTodo">clear</a-button>
-        </div>
-      </a-col>
-    </a-row>
-  </div>
+        a-form-model(
+          :model="form"
+          :label-col="{ span: 5 }"
+          :wrapper-col="{ span: 12 }"
+        )
+          a-form-model-item(label="TODO")
+            a-input(v-model="form.todo")
+          a-form-model-item(label="LIMIT")
+            a-input(v-model="form.limit")
+        a-button(type="primary" @click="addTodo") add
+        a-button(type="dashed" @click="clearTodo") clear
 </template>
 
 <script>
