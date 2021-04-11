@@ -3,9 +3,7 @@
     <a-row>
       <a-col :span="12">
         <a-spin v-if="loading" tip="読み込み中">
-          <div class="spin-content">
-          ローディング中
-          </div>
+          <div class="spin-content">ローディング中</div>
         </a-spin>
         <div v-else>
           <p>{{ $store.getters.getUserName }}</p>
@@ -28,8 +26,11 @@
             </tbody>
           </table>
 
-
-          <a-form-model :model="form" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }">
+          <a-form-model
+            :model="form"
+            :label-col="{ span: 5 }"
+            :wrapper-col="{ span: 12 }"
+          >
             <a-form-model-item label="TODO">
               <a-input v-model="form.todo" />
             </a-form-model-item>
@@ -57,9 +58,9 @@ export default {
     }
   },
   async created() {
-    this.loading = true;
+    this.loading = true
     await this.$store.dispatch('fetchTodos')
-    this.loading = false;
+    this.loading = false
   },
   methods: {
     login() {
@@ -73,20 +74,20 @@ export default {
       }
     },
     addTodo() {
-      const {todo, limit} = this.form
+      const { todo, limit } = this.form
 
       this.$store.dispatch('addTodo', { todo, limit })
       this.reset()
     },
     clearTodo() {
       this.reset()
-    }
+    },
   },
   watch: {
     loading() {
-      return this.isLoading;
-    }
-  }
+      return this.isLoading
+    },
+  },
 }
 </script>
 

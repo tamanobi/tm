@@ -31,15 +31,15 @@ export const actions = {
         commit('setUserName', user.displayName)
       })
       .catch(function (error) {
-        var errorCode = error.code
+        const errorCode = error.code
         console.log('error : ' + errorCode)
       })
   },
   async fetchTodos({ commit, getters }) {
     const todoRef = getters['firebase/getFirebase']
       .firestore()
-      .collection('todos');
-    const docs = await todoRef.get();
+      .collection('todos')
+    const docs = await todoRef.get()
     docs.forEach((doc) => {
       console.log(`success: ${doc.id} => ${doc.data()}`)
       commit('addTodo', doc.data())
