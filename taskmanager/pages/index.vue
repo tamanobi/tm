@@ -16,11 +16,10 @@
           :wrapper-col="{ span: 19 }"
         )
           a-form-model-item(label="TODO")
-            a-input(v-model="form.todo")
+            a-input(v-model="form.todo" allow-clear)
           a-form-model-item(label="LIMIT")
-            a-input(v-model="form.limit")
+            a-input(v-model="form.limit" allow-clear)
         a-button(type="primary" @click="addTodo") add
-        a-button(type="dashed" @click="clearTodo") clear
 </template>
 
 <script>
@@ -73,9 +72,6 @@ export default {
       }
 
       this.$store.dispatch('addTodo', { todo, limit })
-      this.reset()
-    },
-    clearTodo() {
       this.reset()
     },
   },
