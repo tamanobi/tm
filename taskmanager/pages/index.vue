@@ -64,6 +64,14 @@ export default {
     addTodo() {
       const { todo, limit } = this.form
 
+      if (todo === '' || limit === '') {
+        this.$notification.open({
+          message: '入力エラー',
+          description: '空文字列は入れられません',
+        })
+        return
+      }
+
       this.$store.dispatch('addTodo', { todo, limit })
       this.reset()
     },
