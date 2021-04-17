@@ -1,6 +1,6 @@
 <template lang="pug">
   a-row
-    a-col(:span="22" :offset="1")
+    a-col(:span="18" :offset="3")
       a-spin(v-if="loading" tip="読み込み中")
         .spin-content ローディング中
       div(v-else)
