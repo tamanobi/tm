@@ -4,7 +4,7 @@
       a-spin(v-if="loading" tip="読み込み中")
         .spin-content ローディング中
       div(v-else)
-        p {{ $store.getters.getUserName }}
+        p {{ getUserName }}
         button.button.is-primary.is-rounded(@click="login")
           | ログイン
         a-table(:columns="columns" :data-source="todoList" size="small")
@@ -33,6 +33,7 @@ export default {
   data() {
     return {
       columns,
+      user: null,
       form: {
         todo: '',
         limit: '',
