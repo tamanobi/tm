@@ -25,7 +25,7 @@ export const actions = {
       .signInWithPopup(provider)
       .then(function (result) {
         const user = result.user
-        console.info('success : ' + user)
+        console.info('success : ', result)
         commit('setUserUid', user.uid)
         commit('setUserName', user.displayName)
       })
@@ -40,7 +40,8 @@ export const actions = {
       .collection('todos')
     const docs = await todoRef.get()
     docs.forEach((doc) => {
-      console.info(`success: ${doc.id} => ${doc.data()}`)
+      console.info('doc.id', doc.id)
+      console.info('doc.data', doc.data())
       commit('addTodo', doc.data())
     })
   },
