@@ -5,6 +5,7 @@ import 'firebase/firestore'
 
 export const state = () => ({
   firebase: null,
+  ready: false,
 })
 
 export const mutations = {
@@ -14,7 +15,9 @@ export const mutations = {
 }
 
 export const actions = {
-  async initialize({ commit }) {
+  async initialize({ state, commit }) {
+    if (state.ready) return
+
     const resp = await fetch('/__/firebase/init.json')
     firebase.initializeApp(await resp.json())
     commit('initData', firebase)
