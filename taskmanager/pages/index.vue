@@ -23,6 +23,8 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
+
 const columns = [
   { title: 'todo', dataIndex: 'todo', key: 'todo' },
   { title: 'limit', dataIndex: 'limit', key: 'limit' },
@@ -44,16 +46,17 @@ export default {
       return this.isLoading
     },
   },
+  computed: {
+    ...mapGetters(['getUserName', 'getTodos']),
+  },
   async created() {
     this.loading = true
-    await this.$store.dispatch('fetchTodos')
-    this.todoList = this.$store.getters.getTodos
+    await this.fetchTodos()
+    this.todoList = this.getTodos
     this.loading = false
   },
   methods: {
-    login() {
-      this.$store.dispatch('login')
-    },
+    ...mapActions(['fetchTodos', 'addTodo', 'login']),
     reset() {
       this.form = {
         todo: '',
@@ -71,7 +74,7 @@ export default {
         return
       }
 
-      this.$store.dispatch('addTodo', { todo, limit })
+      this.addTodo({ todo, limit })
       this.reset()
     },
   },
