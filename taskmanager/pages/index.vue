@@ -5,8 +5,7 @@
         .spin-content ローディング中
       div(v-else)
         p {{ getUserName }}
-        button.button.is-primary.is-rounded(@click="login")
-          | ログイン
+        a-button(type="primary" @click="login") ログイン
         a-table(:columns="columns" :data-source="todoList" size="small")
           a(slot="name" slot-scope="todo") {{ todo }}
 
