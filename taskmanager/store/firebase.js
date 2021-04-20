@@ -25,8 +25,6 @@ export const actions = {
 }
 
 export const getters = {
-  getFirebase(state) {
-    return state.firebase
-  },
+  getFirebase: (state) => state.firebase,
   todoRef: (state) => state.firebase.firestore().collection('todos'),
 }
