@@ -57,7 +57,11 @@ export default {
     this.loading = false
   },
   methods: {
-    ...mapActions(['fetchTodos', 'addTodo', 'login']),
+    ...mapActions({
+      fetchTodos: 'fetchTodos',
+      addTodoAction: 'addTodo',
+      login: 'login',
+    }),
     reset() {
       this.form = {
         todo: '',
@@ -75,7 +79,7 @@ export default {
         return
       }
 
-      this.addTodo({ todo, limit })
+      this.addTodoAction({ todo, limit })
       this.reset()
     },
   },
