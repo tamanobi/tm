@@ -4,8 +4,10 @@
       a-spin(v-if="loading" tip="読み込み中")
         .spin-content ローディング中
       div(v-else)
-        p {{ getUserName }}
-        a-button(type="primary" @click="login") ログイン
+        div(v-if="isLoggedIn")
+          p {{ uid }}
+          p {{ username }}
+        a-button(v-if="!isLoggedIn" type="primary" @click="login") ログイン
         a-table(:columns="columns" :data-source="todoList" size="small")
           a(slot="name" slot-scope="todo") {{ todo }}
 
@@ -22,7 +24,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapState } from 'vuex'
 
 const columns = [
   { title: 'todo', dataIndex: 'todo', key: 'todo' },
@@ -48,6 +50,8 @@ export default {
   },
   computed: {
     ...mapGetters(['getUserName', 'getTodos']),
+    ...mapGetters('auth', ['isLoggedIn']),
+    ...mapState('auth', ['uid', 'username']),
   },
   async created() {
     this.loading = true

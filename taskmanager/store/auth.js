@@ -18,3 +18,9 @@ export const actions = {
     commit('setUser', user)
   },
 }
+export const getters = {
+  isLoggedIn: (state) => {
+    console.log('state', state)
+    return state.status === 'loggedIn'
+  },
+}
