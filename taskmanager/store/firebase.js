@@ -28,4 +28,5 @@ export const getters = {
   getFirebase(state) {
     return state.firebase
   },
+  todoRef: (state) => state.firebase.firestore().collection('todos'),
 }

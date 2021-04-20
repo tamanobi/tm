@@ -34,18 +34,14 @@ export const actions = {
       })
   },
   async fetchTodos({ commit, getters }) {
-    const todoRef = getters['firebase/getFirebase']
-      .firestore()
-      .collection('todos')
+    const todoRef = getters['firebase/todoRef']
     const docs = await todoRef.get()
     docs.forEach((doc) => {
       commit('addTodo', doc.data())
     })
   },
   addTodo({ commit, getters }, todo) {
-    const todoRef = getters['firebase/getFirebase']
-      .firestore()
-      .collection('todos')
+    const todoRef = getters['firebase/todoRef']
     todoRef.add({ todo: todo.todo, limit: todo.limit }).then((doc) => {
       commit('addTodo', todo)
     })
