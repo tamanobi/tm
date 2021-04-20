@@ -25,13 +25,12 @@ export const actions = {
       .signInWithPopup(provider)
       .then(function (result) {
         const user = result.user
-        console.info('success : ', result)
         commit('setUserUid', user.uid)
         commit('setUserName', user.displayName)
       })
       .catch(function (error) {
         const errorCode = error.code
-        console.error('error : ' + errorCode)
+        console.error('error', errorCode)
       })
   },
   async fetchTodos({ commit, getters }) {
@@ -40,8 +39,6 @@ export const actions = {
       .collection('todos')
     const docs = await todoRef.get()
     docs.forEach((doc) => {
-      console.info('doc.id', doc.id)
-      console.info('doc.data', doc.data())
       commit('addTodo', doc.data())
     })
   },
@@ -50,7 +47,6 @@ export const actions = {
       .firestore()
       .collection('todos')
     todoRef.add({ todo: todo.todo, limit: todo.limit }).then((doc) => {
-      console.info(doc.id)
       commit('addTodo', todo)
     })
   },

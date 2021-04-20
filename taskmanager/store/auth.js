@@ -20,7 +20,6 @@ export const actions = {
 }
 export const getters = {
   isLoggedIn: (state) => {
-    console.log('state', state)
     return state.status === 'loggedIn'
   },
 }
