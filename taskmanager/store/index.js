@@ -37,7 +37,7 @@ export const actions = {
     const todoRef = getters['firebase/todoRef']
     const docs = await todoRef.get()
     docs.forEach((doc) => {
-      commit('addTodo', doc.data())
+      commit('addTodo', { ...doc.data(), id: doc.id })
     })
   },
   addTodo({ commit, getters }, todo) {
