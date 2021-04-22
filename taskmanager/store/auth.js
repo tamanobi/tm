@@ -53,4 +53,7 @@ export const getters = {
   isLoggedIn: (state) => {
     return state.status === 'loggedIn'
   },
+  uid: (state) => {
+    return state.uid
+  },
 }

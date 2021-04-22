@@ -8,6 +8,7 @@
           p {{ uid }}
           p {{ username }}
           a-button(type="secondary" @click="logout") ログアウト
+        a-button(type="primary" @click="fetchTodos") ロード
         a-button(v-if="!isLoggedIn" type="primary" @click="login") ログイン
         a-table(:columns="columns" :data-source="todoList" size="small")
           a(slot="name" slot-scope="todo") {{ todo }}
@@ -40,7 +41,6 @@ export default {
         todo: '',
         limit: '',
       },
-      todoList: [],
       loading: true,
     }
   },
@@ -48,16 +48,21 @@ export default {
     loading() {
       return this.isLoading
     },
+    todoList(val, _) {
+      console.log(val)
+    },
   },
   computed: {
     ...mapGetters(['getUserName', 'getTodos']),
     ...mapGetters('auth', ['isLoggedIn']),
     ...mapState('auth', ['uid', 'username']),
+    todoList() {
+      return this.getTodos
+    },
   },
-  async created() {
+  async mounted() {
     this.loading = true
     await this.fetchTodos()
-    this.todoList = this.getTodos
     this.loading = false
   },
   methods: {

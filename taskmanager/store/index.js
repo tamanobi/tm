@@ -9,9 +9,11 @@ export const mutations = {
 }
 
 export const actions = {
-  async fetchTodos({ commit, getters }) {
+  async fetchTodos({ commit, getters, rootGetters }) {
     const todoRef = getters['firebase/todoRef']
-    const docs = await todoRef.get()
+    const uid = rootGetters['auth/uid']
+    console.log('uid', uid)
+    const docs = await todoRef.where('uid', '==', uid).get()
     docs.forEach((doc) => {
       commit('addTodo', { ...doc.data(), id: doc.id })
     })
