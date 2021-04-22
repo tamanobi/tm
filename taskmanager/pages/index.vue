@@ -7,6 +7,7 @@
         div(v-if="isLoggedIn")
           p {{ uid }}
           p {{ username }}
+          a-button(type="secondary" @click="logout") ログアウト
         a-button(v-if="!isLoggedIn" type="primary" @click="login") ログイン
         a-table(:columns="columns" :data-source="todoList" size="small")
           a(slot="name" slot-scope="todo") {{ todo }}
@@ -63,7 +64,8 @@ export default {
     ...mapActions({
       fetchTodos: 'fetchTodos',
       addTodoAction: 'addTodo',
-      login: 'login',
+      login: 'auth/login',
+      logout: 'auth/logout',
     }),
     reset() {
       this.form = {
