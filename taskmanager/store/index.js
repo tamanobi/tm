@@ -16,9 +16,10 @@ export const actions = {
       commit('addTodo', { ...doc.data(), id: doc.id })
     })
   },
-  addTodo({ commit, getters }, todo) {
+  addTodo({ commit, getters, rootState }, todo) {
     const todoRef = getters['firebase/todoRef']
-    todoRef.add({ todo: todo.todo, limit: todo.limit }).then((doc) => {
+    const uid = rootState.auth.uid
+    todoRef.add({ todo: todo.todo, limit: todo.limit, uid }).then((doc) => {
       commit('addTodo', todo)
     })
   },
