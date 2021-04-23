@@ -57,7 +57,6 @@ export default {
   },
   async fetch() {
     this.loading = true
-    console.log(await this.log())
     this.todoList = await this.fetchTodos()
     this.loading = false
   },

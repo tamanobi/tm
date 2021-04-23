@@ -38,22 +38,28 @@ export const actions = {
         console.error('error', errorCode)
       })
   },
-  logout({ commit, rootGetters }) {
+  async logout({ commit, rootGetters }) {
     const firebase = rootGetters['firebase/getFirebase']
-    console.log('firebase', firebase)
-    firebase
-      .auth()
-      .signOut()
-      .then(() => {
-        commit('logoutUser')
-      })
+    const thenable = {
+      then: (resolve, _reject) => {
+        firebase
+          .auth()
+          .signOut()
+          .then(() => {
+            resolve(true)
+            commit('logoutUser')
+          })
+      },
+    }
+    return await thenable
   },
-  async log({ rootGetters }) {
+  async log({ commit, rootGetters }) {
     const firebase = rootGetters['firebase/getFirebase']
     const thenable = {
       then: (resolve, _reject) => {
         firebase.auth().onAuthStateChanged((user) => {
           if (user) {
+            commit('setUser', user)
             resolve(user)
           } else {
             resolve(null)
@@ -65,7 +71,6 @@ export const actions = {
   },
   currentUser({ rootGetters }) {
     const firebase = rootGetters['firebase/getFirebase']
-    console.log('currentUser', firebase.auth().currentUser.uid)
     return firebase.auth().currentUser
   },
 }
