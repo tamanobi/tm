@@ -12,11 +12,14 @@ export const actions = {
   async fetchTodos({ commit, getters, rootGetters }) {
     const todoRef = getters['firebase/todoRef']
     const uid = rootGetters['auth/uid']
-    console.log('uid', uid)
     const docs = await todoRef.where('uid', '==', uid).get()
+    const todoList = []
     docs.forEach((doc) => {
-      commit('addTodo', { ...doc.data(), id: doc.id })
+      const d = { ...doc.data(), id: doc.id }
+      commit('addTodo', d)
+      todoList.push(d)
     })
+    return todoList
   },
   addTodo({ commit, getters, rootState }, todo) {
     const todoRef = getters['firebase/todoRef']

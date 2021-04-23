@@ -48,6 +48,26 @@ export const actions = {
         commit('logoutUser')
       })
   },
+  async log({ rootGetters }) {
+    const firebase = rootGetters['firebase/getFirebase']
+    const thenable = {
+      then: (resolve, _reject) => {
+        firebase.auth().onAuthStateChanged((user) => {
+          if (user) {
+            resolve(user)
+          } else {
+            resolve(null)
+          }
+        })
+      },
+    }
+    return await thenable
+  },
+  currentUser({ rootGetters }) {
+    const firebase = rootGetters['firebase/getFirebase']
+    console.log('currentUser', firebase.auth().currentUser.uid)
+    return firebase.auth().currentUser
+  },
 }
 export const getters = {
   isLoggedIn: (state) => {

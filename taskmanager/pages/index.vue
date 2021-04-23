@@ -41,6 +41,7 @@ export default {
         todo: '',
         limit: '',
       },
+      todoList: [],
       loading: true,
     }
   },
@@ -48,21 +49,16 @@ export default {
     loading() {
       return this.isLoading
     },
-    todoList(val, _) {
-      console.log(val)
-    },
   },
   computed: {
     ...mapGetters(['getUserName', 'getTodos']),
     ...mapGetters('auth', ['isLoggedIn']),
     ...mapState('auth', ['uid', 'username']),
-    todoList() {
-      return this.getTodos
-    },
   },
-  async mounted() {
+  async fetch() {
     this.loading = true
-    await this.fetchTodos()
+    console.log(await this.log())
+    this.todoList = await this.fetchTodos()
     this.loading = false
   },
   methods: {
@@ -71,6 +67,8 @@ export default {
       addTodoAction: 'addTodo',
       login: 'auth/login',
       logout: 'auth/logout',
+      log: 'auth/log',
+      currentUser: 'auth/currentUser',
     }),
     reset() {
       this.form = {
