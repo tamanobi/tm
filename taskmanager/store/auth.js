@@ -1,19 +1,19 @@
 export const state = () => ({
-  status: '',
   uid: '',
   username: '',
   email: '',
+  isLoggedIn: false,
   token: localStorage.getItem('token') || '',
 })
 export const mutations = {
   setUser(state, user) {
-    state.status = 'loggedIn'
+    state.isLoggedIn = true
     state.username = user.displayName
     state.email = user.email
     state.uid = user.uid
   },
   logoutUser(state) {
-    state.status = ''
+    state.isLoggedIn = false
     state.username = ''
     state.email = ''
     state.uid = ''
@@ -77,7 +77,7 @@ export const actions = {
 }
 export const getters = {
   isLoggedIn: (state) => {
-    return state.status === 'loggedIn'
+    return state.isLoggedIn
   },
   uid: (state) => {
     return state.uid
