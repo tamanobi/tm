@@ -56,9 +56,15 @@ export default {
     ...mapState('auth', ['uid', 'username']),
   },
   async fetch() {
-    this.loading = true
-    this.todoList = await this.fetchTodos()
-    this.loading = false
+    await this.refetch()
+  },
+  created() {
+    this.$store.watch(
+      (state, getters) => getters['auth/uid'],
+      async (_newValue, _oldValue) => {
+        await this.refetch()
+      }
+    )
   },
   methods: {
     ...mapActions({
@@ -88,6 +94,11 @@ export default {
 
       this.addTodoAction({ todo, limit })
       this.reset()
+    },
+    async refetch() {
+      this.loading = true
+      this.todoList = await this.fetchTodos()
+      this.loading = false
     },
   },
 }
