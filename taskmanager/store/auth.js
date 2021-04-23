@@ -46,8 +46,8 @@ export const actions = {
           .auth()
           .signOut()
           .then(() => {
-            resolve(true)
             commit('logoutUser')
+            resolve(true)
           })
       },
     }
@@ -62,6 +62,7 @@ export const actions = {
             commit('setUser', user)
             resolve(user)
           } else {
+            commit('logoutUser')
             resolve(null)
           }
         })
