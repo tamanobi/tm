@@ -28,6 +28,15 @@ export const actions = {
       commit('addTodo', todo)
     })
   },
+  removeTodo({ commit, getters, rootState }, todo) {
+    const todoRef = getters['firebase/todoRef']
+    todoRef
+      .doc(todo.id)
+      .delete()
+      .then(() => {
+        commit('fetchTodos')
+      })
+  },
 }
 
 export const getters = {

@@ -10,6 +10,7 @@
           a-button(type="secondary" @click="logout") ログアウト
         a-button(v-if="!isLoggedIn" type="primary" @click="login") ログイン
         a-table(:columns="columns" :data-source="todoList" size="small")
+          a(slot="action" slot-scope="text" href="removeTodo") delete
           a(slot="name" slot-scope="todo") {{ todo }}
 
         a-form-model(
@@ -28,8 +29,15 @@
 import { mapActions, mapGetters, mapState } from 'vuex'
 
 const columns = [
+  { title: 'id', dataIndex: 'id', key: 'id' },
   { title: 'todo', dataIndex: 'todo', key: 'todo' },
   { title: 'limit', dataIndex: 'limit', key: 'limit' },
+  {
+    title: 'action',
+    dataIndex: '',
+    key: 'x',
+    scopedSlots: { customRender: 'action' },
+  },
 ]
 export default {
   data() {
@@ -69,6 +77,7 @@ export default {
     ...mapActions({
       fetchTodos: 'fetchTodos',
       addTodoAction: 'addTodo',
+      removeTodo: 'addTodo',
       login: 'auth/login',
       logout: 'auth/logout',
       log: 'auth/log',
