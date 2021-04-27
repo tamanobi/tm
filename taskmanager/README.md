@@ -2,9 +2,6 @@
 
 ## TODO
 
-- setting firebase firestore rules
-- show only current user's tasks
-- add tests
 - TypeScript
 
 ## Build Setup
