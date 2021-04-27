@@ -33,7 +33,6 @@ export const actions = {
   },
   removeTodo({ commit, getters }, todo) {
     const todoRef = getters['firebase/todoRef']
-    todoRef.doc(todo.id)
     todoRef
       .doc(todo.id)
       .delete()
