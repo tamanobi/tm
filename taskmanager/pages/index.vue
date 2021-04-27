@@ -10,7 +10,7 @@
           a-button(type="secondary" @click="logout") ログアウト
         a-button(v-if="!isLoggedIn" type="primary" @click="login") ログイン
         a-table(:columns="columns" :data-source="todoList" size="small")
-          a(slot="action" slot-scope="text" href="removeTodo") delete
+          a(slot="action" slot-scope="record" @click="removeTodo(record)") delete
           a(slot="name" slot-scope="todo") {{ todo }}
 
         a-form-model(
@@ -56,9 +56,10 @@ export default {
     loading() {
       return this.isLoading
     },
+    ...mapGetters(['getTodos']),
   },
   computed: {
-    ...mapGetters(['getUserName', 'getTodos']),
+    ...mapGetters(['getUserName']),
     ...mapGetters('auth', ['isLoggedIn']),
     ...mapState('auth', ['uid', 'username']),
   },
@@ -77,7 +78,7 @@ export default {
     ...mapActions({
       fetchTodos: 'fetchTodos',
       addTodoAction: 'addTodo',
-      removeTodo: 'addTodo',
+      removeTodo: 'removeTodo',
       login: 'auth/login',
       logout: 'auth/logout',
       log: 'auth/log',
