@@ -6,6 +6,9 @@ export const mutations = {
   addTodo(state, todo) {
     state.todos.push(todo)
   },
+  removeTodo(state, id) {
+    state.todos = state.todos.filter((v) => v.id !== id)
+  },
 }
 
 export const actions = {
@@ -35,10 +38,7 @@ export const actions = {
       .doc(todo.id)
       .delete()
       .then(() => {
-        commit('fetchTodos')
-      })
-      .catch((e) => {
-        commit('fetchTodos')
+        commit('removeTodo', todo.id)
       })
   },
 }
