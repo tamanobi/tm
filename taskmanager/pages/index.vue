@@ -5,7 +5,6 @@
         .spin-content ローディング中
       div(v-else)
         div(v-if="isLoggedIn")
-          p {{ uid }}
           p {{ username }}
           a-button(type="secondary" @click="logout") ログアウト
         a-button(v-if="!isLoggedIn" type="primary" @click="login") ログイン
@@ -61,7 +60,7 @@ export default {
   computed: {
     ...mapGetters(['getUserName']),
     ...mapGetters('auth', ['isLoggedIn']),
-    ...mapState('auth', ['uid', 'username']),
+    ...mapState('auth', ['username']),
   },
   async fetch() {
     await this.refetch()
