@@ -49,7 +49,23 @@ export default {
       },
       todoList: [],
       loading: true,
+      unsubscribe: null,
     }
+  },
+  mounted() {
+    this.unsubscribe = this.todoRef.onSnapshot((snapshot) => {
+      snapshot.docChanges().forEach((change) => {
+        console.log(change)
+        if (change.type === 'added') {
+          this.todoList = { ...change.doc.data(), id: change.doc.id }
+        } else if (change.type === 'removed') {
+          this.todoList = this.todoList.filter((o) => o.id !== change.doc.id)
+        }
+      })
+    })
+  },
+  beforeDestroy() {
+    this.unsubscribe()
   },
   watch: {
     loading() {
@@ -60,6 +76,7 @@ export default {
   computed: {
     ...mapGetters(['getUserName']),
     ...mapGetters('auth', ['isLoggedIn']),
+    ...mapGetters('firebase', ['todoRef']),
     ...mapState('auth', ['username']),
   },
   async fetch() {

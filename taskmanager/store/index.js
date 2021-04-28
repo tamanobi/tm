@@ -36,7 +36,8 @@ export const actions = {
     todoRef
       .doc(todo.id)
       .delete()
-      .then(() => {
+      .then((doc) => {
+        console.log(doc)
         commit('removeTodo', todo.id)
       })
   },
