@@ -8,7 +8,7 @@
           p {{ username }}
           a-button(type="secondary" @click="logout") ログアウト
         a-button(v-if="!isLoggedIn" type="primary" @click="login") ログイン
-        a-table(:columns="columns" :data-source="todoList" size="small")
+        a-table(:columns="columns" :data-source="todoList" rowKey='id' size="small")
           a(slot="action" slot-scope="record" @click="removeTodo(record)") delete
           a(slot="name" slot-scope="todo") {{ todo }}
 
@@ -55,9 +55,11 @@ export default {
   mounted() {
     this.unsubscribe = this.todoRef.onSnapshot((snapshot) => {
       snapshot.docChanges().forEach((change) => {
-        console.log(change)
         if (change.type === 'added') {
-          this.todoList.push({ ...change.doc.data(), id: change.doc.id })
+          const ids = this.todoList.map((v) => v.id)
+          if (!ids.includes(change.doc.id)) {
+            this.todoList.push({ ...change.doc.data(), id: change.doc.id })
+          }
         } else if (change.type === 'removed') {
           this.todoList = this.todoList.filter((o) => o.id !== change.doc.id)
         }
