@@ -57,7 +57,7 @@ export default {
       snapshot.docChanges().forEach((change) => {
         console.log(change)
         if (change.type === 'added') {
-          this.todoList = { ...change.doc.data(), id: change.doc.id }
+          this.todoList.push({ ...change.doc.data(), id: change.doc.id })
         } else if (change.type === 'removed') {
           this.todoList = this.todoList.filter((o) => o.id !== change.doc.id)
         }
