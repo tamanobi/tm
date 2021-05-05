@@ -4,6 +4,14 @@
 
 - TypeScript
 
+## how to develop
+
+- npm run dev
+- firebase serve
+- docker-compose up -d
+
+FIXME: run by one command for develop
+
 ## Build Setup
 
 ```bash
