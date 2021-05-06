@@ -10,7 +10,10 @@ services:
     command: '/bin/devproxy /app/devproxy.yml'
     network_mode: host
   front:
-    dockerfile: ./Dockerfile
+    build:
+      context: .
+    ports:
+      - 3033:3000
     volumes:
       - .:/app
 
