@@ -9,6 +9,11 @@ services:
       - 8080:8080
     command: '/bin/devproxy /app/devproxy.yml'
     network_mode: host
+  front:
+    dockerfile: ./Dockerfile
+    volumes:
+      - .:/app
+
 # networks:
 #   default:
 #     driver: bridge
