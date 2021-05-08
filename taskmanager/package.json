@@ -16,6 +16,7 @@
     "ant-design-vue": "^1.7.4",
     "core-js": "^3.9.1",
     "firebase": "^8.3.3",
+    "handlebars": ">=4.7.7",
     "nuxt": "^2.15.3",
     "pug": "^3.0.2",
     "pug-loader": "^1.0.2",
