@@ -16,7 +16,3 @@ services:
       - 3033:3000
     volumes:
       - .:/app
-
-# networks:
-#   default:
-#     driver: bridge
