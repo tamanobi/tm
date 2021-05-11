@@ -13,6 +13,13 @@ services:
     build:
       context: .
     ports:
-      - 3033:3000
+      - 3000:3000
+    network_mode: host
     volumes:
       - .:/app
+  dozzle:
+    image: amir20/dozzle:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 9999:8080
