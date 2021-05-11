@@ -1,7 +1,4 @@
-import firebase from 'firebase/app'
-import 'firebase/auth'
-import 'firebase/firestore'
-// ref: https://firebase.google.com/docs/web/setup?hl=ja#add-sdks-initialize
+import Firebase from '~/infrastructure/firebase'
 
 export const state = () => ({
   firebase: null,
@@ -15,12 +12,11 @@ export const mutations = {
 }
 
 export const actions = {
-  async initialize({ state, commit }) {
+  initialize({ state, commit }) {
     if (state.ready) return
 
-    const resp = await fetch('/__/firebase/init.json')
-    firebase.initializeApp(await resp.json())
-    commit('initData', firebase)
+    const fb = new Firebase()
+    commit('initData', fb.instance)
   },
 }
 
