@@ -10,6 +10,8 @@ services:
     command: '/bin/devproxy /app/devproxy.yml'
     network_mode: host
   front:
+    env_file:
+      - .env
     build:
       context: .
     ports:
