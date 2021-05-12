@@ -5,10 +5,6 @@ import 'firebase/firestore'
 
 export default class Firebase {
   constructor() {
-    console.log(process)
-    console.log(this.$config)
-    console.log(process.env.APIKEY)
-
     firebase.initializeApp({
       apiKey: process.env.APIKEY,
       authDomain: process.env.AUTHDOMAIN,
