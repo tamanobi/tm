@@ -40,4 +40,8 @@ export default class Firebase {
     }
     return this._auth
   }
+
+  get todos() {
+    return this.db.collection('todos')
+  }
 }
