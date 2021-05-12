@@ -25,3 +25,16 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - 9999:8080
+  firebase:
+    build:
+      context: .
+      dockerfile: docker/firebase/Dockerfile
+    ports:
+      - 4000:4000
+      - 9099:9099
+      - 8099:8099
+    command:
+      - "emulators:start"
+      - "--project"
+      - "${PROJECTID}"
+    network_mode: host
