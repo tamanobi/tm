@@ -40,16 +40,8 @@ services:
       - 5000:5000
       - 9099:9099
       - 8099:8099
-    command:
-      - "emulators:start"
-      - "--project"
-      - "${PROJECTID}"
-      - "--token"
-      - "${FIREBASE_TOKEN}"
     networks:
       - ntwk
-    command: bash
-    tty: true
 
 networks:
   ext:

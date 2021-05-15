@@ -7,3 +7,5 @@ RUN set -ex \
   && apt-get install -y nodejs \
   && npm install -g firebase-tools
 COPY firebase.json firebase.json
+
+CMD firebase emulators:start --project $PROJECTID --token $FIREBASE_TOKEN
