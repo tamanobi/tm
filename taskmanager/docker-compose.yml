@@ -8,7 +8,8 @@ services:
     ports:
       - 8080:8080
     command: '/bin/devproxy /app/devproxy.yml'
-    network_mode: host
+    networks:
+      - ntwk
   front:
     env_file:
       - .env
@@ -17,9 +18,11 @@ services:
       dockerfile: docker/front/Dockerfile
     ports:
       - 3000:3000
-    network_mode: host
     volumes:
       - .:/app
+    networks:
+      - ntwk
+      - ext
   dozzle:
     image: amir20/dozzle:latest
     volumes:
@@ -32,10 +35,17 @@ services:
       dockerfile: docker/firebase/Dockerfile
     ports:
       - 4000:4000
+      - 5000:5000
       - 9099:9099
       - 8099:8099
     command:
       - "emulators:start"
       - "--project"
       - "${PROJECTID}"
-    network_mode: host
+    networks:
+      - ntwk
+
+networks:
+  ext:
+  ntwk:
+

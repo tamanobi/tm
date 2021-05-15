@@ -4,5 +4,7 @@ tls:
     key: /etc/certs/testca.rsa.key.pem
 hosts:
   https://backend.tm.test:
-    - ^(/__/.*)$: http://127.0.0.1:5000$1
-    - ^(/.*)$: http://127.0.0.1:3000$1
+    - ^(/__/.*)$: http://firebase:5000$1
+    - ^(/firebase/ui/.*)$: http://firebase:4000/firestore$1
+    - ^(/firebase/firestore/.*)$: http://firebase:4000/firestore$1
+    - ^(/.*)$: http://front:3000$1

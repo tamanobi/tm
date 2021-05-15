@@ -26,6 +26,10 @@
       "host": "0.0.0.0",
       "port": 8099
     },
+    "hosting": {
+      "host": "0.0.0.0",
+      "port": 5000
+    },
     "ui": {
       "enabled": true,
       "host": "0.0.0.0",
