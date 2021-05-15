@@ -7,5 +7,3 @@ RUN set -ex \
   && apt-get install -y nodejs \
   && npm install -g firebase-tools
 COPY firebase.json firebase.json
-
-ENTRYPOINT ["firebase"]

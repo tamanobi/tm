@@ -42,10 +42,13 @@ services:
       - "emulators:start"
       - "--project"
       - "${PROJECTID}"
+      - "--token"
+      - "${FIREBASE_TOKEN}"
     networks:
       - ntwk
+    command: bash
+    tty: true
 
 networks:
   ext:
   ntwk:
-
