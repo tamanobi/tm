@@ -52,5 +52,6 @@ export default {
     storageBucket: process.env.STORAGEBUCKET,
     messagingSenderId: process.env.MESSAGINGSENDERID,
     appId: process.env.APPID,
+    appEnv: process.env.APP_ENV,
   },
 }
