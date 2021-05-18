@@ -31,6 +31,9 @@ export default class Firebase {
     if (!this._db) {
       this._db = firebase.firestore()
     }
+    if (process.env.appEnv === 'dev') {
+      db.useEmulator('localhost', 8080)
+    }
     return this._db
   }
 
